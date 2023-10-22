@@ -1,11 +1,13 @@
 from abc import ABC,abstractmethod
 from random import randint
 import sortedcontainers as sc
+import datetime as dt
+import pytz
 class Order(ABC):
-    def __init__(self,Price,Quantity):
+    def __init__(self,Price,Quantity,CreationDate = dt.datetime.now(pytz.utc)):
         self.Price = Price
         self.Quantity = Quantity
-
+        self.CreationDate = CreationDate
     @property
     def elements(self):
         return [self.Price,self.Quantity]
@@ -18,7 +20,7 @@ class Order(ABC):
         return [self.Price, self.Quantity]
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(Price= {self.Price } , Quantity= {self.Quantity})"
+        return f"{self.__class__.__name__}|{self.CreationDate}|(Price= {self.Price } , Quantity= {self.Quantity})"
 
     def __getitem__(self, index):
         return self.elements[index]

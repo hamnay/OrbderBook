@@ -3,7 +3,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import sortedcontainers as sc
 from Order import Bid_Order,Ask_Order
-
+from Transaction import Transaction
 
 class OrbderBook:
     def __init__(self):
@@ -21,6 +21,8 @@ class OrbderBook:
            self.Ask.add(Order)
         elif isinstance(Order, (sc.SortedList,list)):
            self.Ask+= Order
+
+
 
     def plot(self):
         BidPrices,BidQuantities = zip(*reversed(self.Bid))
@@ -46,10 +48,10 @@ class OrbderBook:
 
 if __name__ == "__main__" :
     OB = OrbderBook()
-    Bid_Orders = sc.SortedList(Bid_Order.generate(Price_min = 0, Price_max = 100 , Quantity_max = 20 ,N = 30 ))
+    Bid_Orders = sc.SortedList(Bid_Order.generate(Price_min = 0, Price_max = 100 , Quantity_max = 20 ,N = 10 ))
     OB.add_to_Bid(Bid_Orders)
     print(OB.Bid)
-    Ask_Orders = sc.SortedList(Ask_Order.generate(Price_min = 101, Price_max = 200 , Quantity_max = 20 ,N = 30 ))
+    Ask_Orders = sc.SortedList(Ask_Order.generate(Price_min = 101, Price_max = 200 , Quantity_max = 20 ,N = 10 ))
     OB.add_to_Ask(Ask_Orders)
     print(OB.Ask)
     OB.plot()
